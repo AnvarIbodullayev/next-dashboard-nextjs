@@ -2,7 +2,6 @@
 import React, { useEffect, useState } from "react";
 import Layout from "../components/Dashboard";
 import { Box, LinearProgress, Typography } from "@mui/material";
-import teamsStrengthList from "../components/teamsStrengthList";
 import theme from "../styles/theme";
 import Link from "next/link";
 import axios from "axios";
