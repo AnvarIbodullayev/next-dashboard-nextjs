@@ -1,4 +1,3 @@
-// "use client";
 import Layout from "@/app/components/Dashboard";
 import { Box, Chip, Divider, Typography } from "@mui/material";
 import BackButton from "./BackButton";
@@ -8,15 +7,17 @@ const getBaseUrl = () =>
     ? "http://localhost:3000"
     : process.env.NEXT_PUBLIC_BASE_URL;
 
-export async function generateStaticParams() {
-  const baseUrl = getBaseUrl();
-  const res = await fetch(`${baseUrl}/api/teams`);
-  const teams = await res.json();
+// export async function generateStaticParams() {
+//   const baseUrl = getBaseUrl();
+//   const res = await fetch(`${baseUrl}/api/teams`);
+//   const teams = await res.json();
 
-  return teams.map((team) => ({
-    teamId: team.title,
-  }));
-}
+//   return teams.map((team) => ({
+//     teamId: team.title,
+//   }));
+// }
+
+export const dynamic = "force-dynamic";
 
 export default async function TeamDetails({ params }) {
   const baseUrl = getBaseUrl();
@@ -24,6 +25,10 @@ export default async function TeamDetails({ params }) {
   const { teamId } = params;
   const res = await fetch(`${baseUrl}/api/teams/${teamId}`);
   const team = await res.json();
+
+  if (!res.ok) {
+    throw new Error(`Failed to fetch team data with id ${teamId}`);
+  }
 
   return (
     <Layout>
