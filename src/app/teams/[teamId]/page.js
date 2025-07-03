@@ -3,9 +3,13 @@ import Layout from "@/app/components/Dashboard";
 import { Box, Chip, Divider, Typography } from "@mui/material";
 import BackButton from "./BackButton";
 
-export async function generateStaticParams() {
-  const baseUrl = process.env.NEXT_PUBLIC_BASE_URL;
+const getBaseUrl = () =>
+  process.env.NODE_ENV === "development"
+    ? "http://localhost:3000"
+    : process.env.NEXT_PUBLIC_BASE_URL;
 
+export async function generateStaticParams() {
+  const baseUrl = getBaseUrl();
   const res = await fetch(`${baseUrl}/api/teams`);
   const teams = await res.json();
 
@@ -15,7 +19,8 @@ export async function generateStaticParams() {
 }
 
 export default async function TeamDetails({ params }) {
-  const baseUrl = process.env.NEXT_PUBLIC_BASE_URL;
+  const baseUrl = getBaseUrl();
+
   const { teamId } = params;
   const res = await fetch(`${baseUrl}/api/teams/${teamId}`);
   const team = await res.json();
