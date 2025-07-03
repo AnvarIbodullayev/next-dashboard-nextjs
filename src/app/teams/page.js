@@ -30,7 +30,7 @@ export default function Teams() {
         <LinearProgress color="inherit" />
       ) : (
         teams.map((team, index) => (
-          <Link key={index} href={`teams/${team.title}`}>
+          <Link key={index} href={`/teams/${team.title}`}>
             <Box
               key={team.title}
               sx={{
